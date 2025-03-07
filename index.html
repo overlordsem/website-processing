@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jujutsu Kaisen</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico.png" />
+    <meta charset="UTF-8" />
+    <meta name="author" content="Sem" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="Styles/styles.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #00BFFF;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        /* Grid container */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* Normale column  */
+            grid-template-areas:
+                "header"
+                "nav"
+                "content"
+                "footer";
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Grid area voor de header */
+        header {
+            grid-area: header;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Navigatei */
+        nav {
+            grid-area: nav;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        /* Content */
+        .content {
+            grid-area: content;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+            grid-gap: 20px;
+        }
+
+        .image-frame {
+            border: 5px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            background-color: white;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        footer ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul li {
+            margin: 0 10px;
+        }
+
+        /* Query voor grotere schermen */
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: repeat(1, 1fr); /* Single column blijft voor grotere schermeen*/
+            }
+
+            .content {
+                grid-template-columns: repeat(2, 1fr); /* Twee columns voor grotere schermen */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Jujutsu Kaisen</h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home page</a></li>
+                <li><a href="charactersPage.html">Characters</a></li>
+                <li><a href="quizPage.html">Quiz</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <div class="image-frame">
+                <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/09/jujutsu-kaisen.jpg?q=50&fit=crop&w=480&dpr=1.5" alt="Jujutsu Kaisen group"/>
+                <p>Jujutsu Kaisen is a popular anime and manga series created by Gege Akutami. The story follows <strong>Yuji Itadori</strong>, a high school student who becomes embroiled in the world of jujutsu sorcery after consuming a cursed object: the finger of the powerful curse known as <strong>Sukuna</strong>. As Yuji grapples with his newfound powers and responsibilities, he joins the <strong>Tokyo Metropolitan Jujutsu Technical School</strong> to learn how to battle curses and protect humanity.</p>
+            </div>
+
+            <div class="image-frame">
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/46/Jujutsu_kaisen.jpg" alt="Jujutsu Kaisen manga cover"/>
+                <p>The series features captivating characters such as <strong>Megumi Fushiguro</strong>, who uses shadow manipulation techniques, and <strong>Nobara Kugisaki</strong>, a fierce and determined sorceress. Together, they face formidable adversaries, delve into the origins of curses, and explore themes of friendship, sacrifice, and the struggle between good and evil. As the story unfolds, the bonds between these characters grow stronger, making the stakes even higher in their battles against curses and the mysterious organization behind them.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 Jujutsu Kaisen Fan Page Made By overlordsem</p>
+            <ul>
+                <li><a href="index.html">Home page</a></li>
+                <li><a href="charactersPage.html">Characters</a></li>
+                <li><a href="quizPage.html">Quiz</a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jujutsu Kaisen Quiz</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico.png" />
+    <meta charset="UTF-8" />
+    <meta name="author" content="Sem" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="Styles/styles.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #00BFFF;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Navigatie */
+        nav {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        /* Quiz container */
+        .quiz-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 20px;
+            border: 5px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-container::before {
+            content: "";
+            background-image: url('https://m.media-amazon.com/images/I/71zY-G28STL._AC_UF894,1000_QL80_.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .quiz-container h2 {
+            grid-column: 1;
+            z-index: 1;
+        }
+
+        .quiz-container p {
+            grid-column: 1;
+            z-index: 1;
+        }
+
+        .option {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 10px;
+            width: 90%;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .option:hover {
+            background-color: #0056b3;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"] + span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #007BFF;
+            border-radius: 50%;
+            position: relative;
+            margin-right: 10px;
+        }
+
+        input[type="radio"]:checked + span {
+            background-color: #007BFF;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        footer ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul li {
+            margin: 0 10px;
+        }
+
+        /* Responsive Design for smaller screens */
+        @media (max-width: 600px) {
+            .quiz-container {
+                width: 100%;
+                margin: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Jujutsu Kaisen Quiz</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home page</a></li>
+            <li><a href="charactersPage.html">Characters</a></li>
+            <li><a href="quizPage.html">Quiz</a></li>
+        </ul>
+    </nav>
+
+    <div class="quiz-container" id="quiz">
+        <form id="quiz-form" onsubmit="return checkAnswer();">
+            <h2 id="question-title">Question 1</h2>
+            <p id="question-text">Who is the main protagonist of Jujutsu Kaisen?</p>
+            <div id="options"></div>
+            <div id="result" style="margin-top: 20px;"></div>
+            <button type="submit" class="option">Submit Answer</button>
+            <button type="button" class="option" id="restart-button" style="display:none;" onclick="restartQuiz()">Restart Quiz</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2024 Jujutsu Kaisen Fan Page</p>
+        <ul>
+            <li><a href="index.html">Home page</a></li>
+            <li><a href="charactersPage.html">Characters</a></li>
+            <li><a href="quizPage.html">Quiz</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                question: "Who is the main protagonist of Jujutsu Kaisen?",
+                options: ["Yuji Itadori", "Megumi Fushiguro", "Gojo Satoru", "Sukuna"],
+                answer: "A"
+            },
+            {
+                question: "What is the main goal of Jujutsu Sorcerers?",
+                options: ["Fight curses", "Study sorcery", "Protect humanity", "All of the above"],
+                answer: "D"
+            },
+            {
+                question: "What does Yuji consume to gain powers?",
+                options: ["Cursed fruit", "Cursed object", "Cursed energy", "Cursed seal"],
+                answer: "B"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const questionData = questions[currentQuestionIndex];
+            document.getElementById('question-title').innerText = `Question ${currentQuestionIndex + 1}`;
+            document.getElementById('question-text').innerText = questionData.question;
+            document.getElementById('result').innerText = '';
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+
+            questionData.options.forEach((option, index) => {
+                const optionId = `option${index}`;
+                optionsDiv.innerHTML += `
+                    <label>
+                        <input type="radio" name="answer" value="${String.fromCharCode(65 + index)}" id="${optionId}">
+                        <span></span>${String.fromCharCode(65 + index)}) ${option}
+                    </label>
+                `;
+            });
+        }
+
+        function checkAnswer() {
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            const resultDiv = document.getElementById('result');
+
+            if (!selectedOption) {
+                resultDiv.innerHTML = "<p style='color: red;'>Please select an answer!</p>";
+                return false;
+            }
+
+            const selectedValue = selectedOption.value;
+            const correctAnswer = questions[currentQuestionIndex].answer;
+
+            if (selectedValue === correctAnswer) {
+                resultDiv.innerHTML = "<p style='color: green;'>Correct!</p>";
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    setTimeout(loadQuestion, 1000);
+                } else {
+                    resultDiv.innerHTML += "<p style='color: blue;'>Quiz Completed!</p>";
+                    document.getElementById('restart-button').style.display = 'inline-block';
+                }
+            } else {
+                resultDiv.innerHTML = "<p style='color: red;'>Wrong, try again!</p>";
+            }
+
+            return false;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            document.getElementById('restart-button').style.display = 'none';
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
